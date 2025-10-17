@@ -1,6 +1,15 @@
 import streamlit as st
+from PIL import Image
 
-# 質問と選択肢（マークなしバージョン）
+# タイプごとのスコア管理用辞書
+TYPES = {
+    '🌀': '思考フリーズタイプ',
+    '💭': '感情ためこみタイプ',
+    '💥': '一気に燃え尽きタイプ',
+    '🧺': '散らかされタイプ'
+}
+
+# 質問と選択肢（各選択肢にタイプを割り当て）
 questions = [
     ("Q1. 家が散らかる原因として一番しっくりくるのは？",
      ["方法がよく分からない",
@@ -33,31 +42,45 @@ questions = [
       "家族も使いやすく、散らからない"]),
 ]
 
-# メルマガ登録ページURL（安全な入口）
+# 結果文（タイプ別）※ここでは簡易表示のみ
+RESULTS = {
+    '🌀': "あなたは『思考フリーズタイプ』かもしれません",
+    '💭': "あなたは『感情ためこみタイプ』かもしれません",
+    '💥': "あなたは『一気に燃え尽きタイプ』かもしれません",
+    '🧺': "あなたは『散らかされタイプ』かもしれません"
+}
+
+# メルマガ登録用URL
 MAGAZINE_LINK = "https://www.reservestock.jp/subscribe/221907"
 
-# UIスタート
-from PIL import Image
-logo = Image.open("logo.jpg")
+# UIスタート（ロゴ画像表示）
+logo = Image.open("logo.jpg")  # logo.png でもOK
 st.image(logo, width=150)
 
-st.header("🧹 おかたづけタイプ診断")
-st.write("5問に答えるだけで、あなたの“おかたづけタイプ”が分かります！")
+st.title("🧹 おかたづけタイプ診断")
+st.write("5問に答えるだけで、あなたの片付けタイプが分かります！")
 
-# フォーム表示
+# 回答カウント用
+scores = {'🌀': 0, '💭': 0, '💥': 0, '🧺': 0}
+
 with st.form("diagnosis_form"):
     for idx, (q, options) in enumerate(questions):
-        st.radio(q, options, key=f"q{idx}")
+        choice = st.radio(q, options, key=f"q{idx}")
+        if choice == options[0]:
+            scores['🌀'] += 1
+        elif choice == options[1]:
+            scores['💭'] += 1
+        elif choice == options[2]:
+            scores['💥'] += 1
+        elif choice == options[3]:
+            scores['🧺'] += 1
+
     submitted = st.form_submit_button("診断する")
 
-# 回答後の誘導
+# 診断後の表示
 if submitted:
-    target_url = "https://www.reservestock.jp/subscribe/221907"
-    js = f"""
-    <script>
-        window.location.href = "{target_url}";
-    </script>
-    """
-    st.markdown(js, unsafe_allow_html=True)
-
-   
+    max_type = max(scores, key=scores.get)
+    st.markdown(f"## {RESULTS[max_type]}")
+    st.write("詳しいアドバイスは、メルマガでお届けします📩")
+    st.markdown(f"👉 [メルマガ登録はこちら]({MAGAZINE_LINK})")
+    st.info("ご登録後、自動返信メールにて診断結果の詳細をお送りします。")
