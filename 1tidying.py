@@ -1,15 +1,5 @@
 import streamlit as st
 from PIL import Image
-st.markdown("""
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap');
-
-    html, body, [class*="css"]  {
-        font-family: 'Noto Serif JP', serif;
-    }
-    </style>
-""", unsafe_allow_html=True)
-
 
 # タイプごとのスコア管理用辞書
 TYPES = {
@@ -66,6 +56,18 @@ MAGAZINE_LINK = "https://www.reservestock.jp/subscribe/221907"
 # UIスタート（ロゴ画像表示）
 logo = Image.open("logo.jpg")  # logo.png でもOK
 st.image(logo, width=150)
+
+st.markdown("""
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap');
+
+    html, body, [class*="css"]  {
+        font-family: 'Noto Serif JP', serif;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+
 
 st.title("🧹 おかたづけタイプ診断")
 st.write("5問に答えるだけで、あなたの片付けタイプが分かります！")
