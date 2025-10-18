@@ -54,14 +54,13 @@ RESULTS = {
 MAGAZINE_LINK = "https://www.reservestock.jp/subscribe/221907"
 
 # UIスタート（ロゴ画像表示）
-logo = Image.open("logo.jpg")  # logo.png でもOK
-st.image(logo, width=150)
+import streamlit as st
 
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap');
 
-    html, body, [class*="css"]  {
+    html, body, [class*="css"] {
         font-family: 'Noto Serif JP', serif;
     }
     </style>
