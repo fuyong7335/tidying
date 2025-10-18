@@ -1,7 +1,7 @@
 import streamlit as st
 from PIL import Image
 
-# 📌 フォントスタイルを明朝体に設定（Noto Serif JP）
+# 📌 フォントスタイルを明朝体に設定
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap');
@@ -12,15 +12,26 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# 🖼️ ロゴ表示（ファイル名が logo.jpg の場合）
+# 🖼️ ロゴ表示（同じフォルダに logo.jpg または .png が必要）
 logo = Image.open("logo.jpg")
 st.image(logo, width=150)
 
-# 📝 タイトルを明朝体＋サイズ調整で表示
+# 📝 タイトル（明朝体＆サイズ調整）
 st.markdown("<h2>🧹 おかたづけタイプ診断</h2>", unsafe_allow_html=True)
 st.write("5問に答えるだけで、あなたの片付けタイプが分かります！")
 
-# 🔧 診断質問（タイプ分類は内部処理で記録）
+# 🔢 タイプスコア（絵文字で管理）
+scores = {'🌀': 0, '💭': 0, '💥': 0, '🧺': 0}
+
+# 🏷️ 絵文字 → タイプ名の辞書
+TYPES = {
+    '🌀': '思考フリーズタイプ',
+    '💭': '感情ためこみタイプ',
+    '💥': '一気に燃え尽きタイプ',
+    '🧺': '散らかされタイプ'
+}
+
+# 📝 設問と選択肢（記号は非表示に）
 questions = [
     ("Q1. 家が散らかる原因として一番しっくりくるのは？",
      ["方法がよく分からない", "思い出や感情が絡んで捨てられない", "一気にやろうとして途中で燃え尽きる", "家族が原因で片付けが進まない"]),
@@ -38,10 +49,7 @@ questions = [
      ["何がどこにあるか一目で分かる", "思い出は大事にしつつスッキリ", "手間なくきれいがキープされる", "家族も使いやすく、散らからない"]),
 ]
 
-# 🔢 タイプのスコアを記録（🌀思考 / 💭感情 / 💥燃え尽き / 🧺周囲）
-scores = {'🌀': 0, '💭': 0, '💥': 0, '🧺': 0}
-
-# 🚀 診断フォーム
+# 🚀 フォーム入力
 with st.form("diagnosis_form"):
     for idx, (q, options) in enumerate(questions):
         choice = st.radio(q, options, key=f"q{idx}")
@@ -55,14 +63,19 @@ with st.form("diagnosis_form"):
             scores['🧺'] += 1
     submitted = st.form_submit_button("診断する")
 
-# ✅ 診断結果を表示（簡易タイプのみ）
+# ✅ 結果表示＋メルマガ誘導
 if submitted:
     max_type = max(scores, key=scores.get)
+
     st.markdown("---")
     st.subheader("診断結果")
-    st.markdown(f"<p style='font-size:20px;'>あなたは <strong>{max_type}</strong> タイプかもしれません。</p>", unsafe_allow_html=True)
-    st.write("▼あなたにぴったりのアドバイスは、こちらから受け取れます👇")
+    st.markdown(
+        f"<p style='font-size:20px;'>あなたは <strong>{TYPES[max_type]}</strong> かもしれません。</p>",
+        unsafe_allow_html=True
+    )
 
-    # 📩 メルマガ登録URL（診断詳細はこちらから）
+    st.write("▼あなたにぴったりのアドバイスは、こちらで受け取れます👇")
+
+    # 📩 メルマガ登録ページ（診断結果付き）
     MAGAZINE_LINK = "https://www.reservestock.jp/subscribe/221907"
     st.markdown(f"[📩 おかたづけアドバイスを受け取る]({MAGAZINE_LINK})", unsafe_allow_html=True)
