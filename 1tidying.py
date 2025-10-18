@@ -68,14 +68,14 @@ if submitted:
     max_type = max(scores, key=scores.get)
 
     st.markdown("---")
-    st.subheader("診断結果")
+    st.markdown("### 診断結果")
     st.markdown(
         f"<p style='font-size:20px;'>あなたは <strong>{TYPES[max_type]}</strong> かもしれません。</p>",
         unsafe_allow_html=True
     )
 
-    st.write("▼あなたにぴったりのアドバイスは、こちらで受け取れます👇")
+    st.write("▼あなたにぴったりのアドバイスは、こちらから受け取れます👇")
 
-    # 📩 メルマガ登録ページ（診断結果付き）
+    # 📩 メルマガ登録リンク
     MAGAZINE_LINK = "https://www.reservestock.jp/subscribe/221907"
-    st.markdown(f"[📩 おかたづけアドバイスを受け取る]({MAGAZINE_LINK})", unsafe_allow_html=True)
+    st.markdown(f"[📩 おかたづけアドバイスを受け取る]({MAGAZINE_LINK})")
