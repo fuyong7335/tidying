@@ -78,4 +78,4 @@ if submitted:
 
     # 📩 メルマガ登録リンク
     MAGAZINE_LINK = "https://www.reservestock.jp/subscribe/221907"
-    st.markdown(f"[📩 おかたづけアドバイスを受け取る]({MAGAZINE_LINK})")
+    st.markdown(f"[📩 おかたづけアドバイスを受けとる]({MAGAZINE_LINK})")
