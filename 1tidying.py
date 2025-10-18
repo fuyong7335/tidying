@@ -80,7 +80,7 @@ with st.form("diagnosis_form"):
 # 診断後の表示
 if submitted:
     max_type = max(scores, key=scores.get)
-   st.markdown(f"<h4>あなたは『{TYPES[max_type]}』かもしれません</h4>", unsafe_allow_html=True)
+    st.markdown(f"<h4>あなたは『{TYPES[max_type]}』かもしれません</h4>", unsafe_allow_html=True)
 st.write("あなたにぴったりのアドバイスは、こちらからお届けしています👇")
 st.markdown(f"👉 [お片付けアドバイスを受け取る](https://www.reservestock.jp/subscribe/221907)")
 st.info("ご登録後、自動返信メールにて診断結果の詳細をお送りします。")
