@@ -79,7 +79,6 @@ with st.form("diagnosis_form"):
 
 # 診断後の表示
 if submitted:
-    if submitted:
     max_type = max(scores, key=scores.get)
 
     st.markdown(f"<h4>あなたは『{TYPES[max_type]}』かもしれません</h4>", unsafe_allow_html=True)
