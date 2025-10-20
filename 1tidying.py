@@ -1,11 +1,11 @@
 import streamlit as st
 from PIL import Image
 
-# ロゴ表示（画像ファイル名は適宜調整してね）
+# ロゴ表示（任意）
 logo = Image.open("logo.jpg")
 st.image(logo, width=150)
 
-# Googleフォント適用（明朝風フォント）
+# フォント変更（Noto Serif JP）
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap');
@@ -18,10 +18,11 @@ st.markdown("""
 st.title("🧹 おかたづけタイプ診断")
 st.write("10問に答えるだけで、あなたのタイプが分かります！")
 
-# 各タイプのスコア
+# スコア初期化
 scores = {'🌀': 0, '💭': 0, '💥': 0, '🧺': 0}
+mark_map = ['🌀', '💭', '💥', '🧺']
 
-# 診断質問（タイプは内部でスコアに反映される）
+# 診断質問10問
 questions = [
     ("片づけを始める前にまず思うことは？", 
      ["方法が分からず手が止まる", "思い出の品が気になって進まない", "とりあえず全部出して一気にやる！", "誰かが散らかしてるのに…って感じる"]),
@@ -45,14 +46,11 @@ questions = [
      ["やり方が合ってた！とホッとする", "心まで軽くなったように感じる", "達成感あるけど燃え尽きる", "家族の反応が嬉しい"])
 ]
 
-# スコアに対応するマーク
-mark_map = ['🌀', '💭', '💥', '🧺']
-
 with st.form("diagnosis_form"):
-    for idx, (question, options) in enumerate(questions):
-        answer = st.radio(f"Q{idx+1}. {question}", options, key=f"q{idx}")
-        selected_index = options.index(answer)
-        scores[mark_map[selected_index]] += 1
+    for idx, (q, options) in enumerate(questions):
+        answer = st.radio(f"Q{idx+1}. {q}", options, key=f"q{idx}")
+        selected = options.index(answer)
+        scores[mark_map[selected]] += 1
 
     submitted = st.form_submit_button("診断する")
 
