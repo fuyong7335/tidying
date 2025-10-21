@@ -3,8 +3,15 @@ import streamlit as st
 from PIL import Image
 
 # ロゴ表示（ファイル名を変更したらここも合わせてね）
-logo = Image.open("logo.jpg")
-st.image(logo, width=150)
+st.markdown(
+    """
+    <a href="https://rakulife.jp/" target="_blank">
+        <img src="https://raw.githubusercontent.com/fuyong7335/okataduke-checker/main/logo.jpg" width="150">
+    </a>
+    """,
+    unsafe_allow_html=True
+)
+
 
 # フォント変更（明朝系）
 st.markdown("""
