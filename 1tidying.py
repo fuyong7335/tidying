@@ -1,13 +1,21 @@
-
-import streamlit as st
 from PIL import Image
+import streamlit as st
+import base64
 
-# ロゴ表示（ファイル名を変更したらここも合わせてね）
-logo = Image.open("logo.jpg")
+# ローカル画像をbase64に変換してHTMLに埋め込む
+def get_base64_image(image_path):
+    with open(image_path, "rb") as image_file:
+        encoded = base64.b64encode(image_file.read()).decode()
+    return encoded
+
+# ロゴ画像とリンク
+image_base64 = get_base64_image("logo.jpg")
+homepage_url = "https://rakulife.jp/"
+
 st.markdown(
-    """
-    <a href="https://rakulife.jp/" target="_blank">
-        <img src="https://raw.githubusercontent.com/fuyong7335/okataduke-checker/main/logo.jpg" width="150">
+    f"""
+    <a href="{homepage_url}" target="_blank">
+        <img src="data:image/png;base64,{image_base64}" width="150">
     </a>
     """,
     unsafe_allow_html=True
