@@ -3,6 +3,7 @@ import streamlit as st
 from PIL import Image
 
 # ロゴ表示（ファイル名を変更したらここも合わせてね）
+logo = Image.open("logo.jpg")
 st.markdown(
     """
     <a href="https://rakulife.jp/" target="_blank">
