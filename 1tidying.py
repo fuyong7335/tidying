@@ -112,6 +112,6 @@ if submitted:
     type_label = TYPES[top_type]
 
     st.markdown("## 🔍 診断結果")
-    st.markdown(f"あなたは **{type_label}** ではないかもしれません。")
+    st.markdown(f"あなたは **{type_label}** かもしれません。")
     st.markdown("▼あなたにぴったりのアドバイスは、こちらから受け取れます👇")
     st.markdown(f"[📩 おかたづけアドバイスを受け取る]({MAGAZINE_LINK})")
